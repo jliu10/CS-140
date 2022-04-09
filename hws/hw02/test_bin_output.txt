@@ -1,0 +1,10 @@
+string	d, ,e,d,s, ,o, ,s,h,s, ,g,c,s,ẃ,i
+float	77.91532
+long	3000458922
+short	32000
+int array	22,900000,225968,992146,-13683
+string	G,s, ,u,e,r, ,e,e,n,B,e,f,r,t,f,e,0,錳,i
+float	-0.0010991
+long	-93256458922
+short	-21
+int array	0,2
