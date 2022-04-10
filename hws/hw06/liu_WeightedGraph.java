@@ -41,7 +41,9 @@ class liu_WeightedGraph implements WeightedGraphFunctions {
     If the vertex already exists, do not add it
 */
 	public boolean addVertex(int v) {
-        return false;
+        if(vertices.contains(v)) return false;
+        vertices.add(v);
+        return true;
     }
 
 
