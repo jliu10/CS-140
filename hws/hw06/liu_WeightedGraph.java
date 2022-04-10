@@ -18,8 +18,43 @@ class liu_WeightedGraph implements WeightedGraphFunctions {
     toVertex
 */
     public boolean hasPath(int fromVertex, int toVertex) {
+        // stack of visited vertices
+        ArrayDeque<Integer> visited = new ArrayDeque<>();
+        visited.push(fromVertex);
+
+        while(visited.size() > 0) {
+            int u = visited.pop().intValue();
+            for(EdgeWithWeight e : edges) {
+                if(e.getFromVertex() == u && !visited.contains(Integer.valueOf(e.getToVertex()))) {
+                    if(e.getToVertex() == toVertex) return true;
+                    visited.push(Integer.valueOf(e.getToVertex()));
+                }
+            }
+        }
+
+        /*
+        ArrayDeque<Integer> a = new ArrayDeque<>();
+        a.push(fromVertex);
+        return hasPath(fromVertex, toVertex, a);
+        */
         return false;
     }
+    /*
+    private boolean hasPath(int fromVertex, int toVertex, ArrayDeque<Integer> visited) {
+        if(fromVertex == toVertex) return true;
+
+        while(visited.size() > 0) {
+            int u = visited.pop().intValue();
+            for(EdgeWithWeight e : edges) {
+                if(e.getFromVertex() == u && !visited.contains(Integer.valueOf(e.getToVertex()))) {
+                    visited.push(Integer.valueOf(e.getToVertex()));
+                }
+            }
+        }
+        
+        return false;
+    }
+    */
 
 /*  Returns the cost of a minimum cost path from the fromVertex to the toVertex.
     Returns Double.NaN if there is no path
