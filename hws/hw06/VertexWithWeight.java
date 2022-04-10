@@ -1,6 +1,6 @@
 class VertexWithWeight {
     private final Integer vertex;
-    private Double weight;
+    private Double weight = Double.POSITIVE_INFINITY;
 
     VertexWithWeight(int v, double w) {
         vertex = v;
