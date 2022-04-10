@@ -4,9 +4,9 @@ class EdgeWithWeight implements EdgeWithWeightFunctions {
     private Double weight;
 
     EdgeWithWeight(int fromVertex, int toVertex, double weight) {
-        this.fromVertex = new Integer(fromVertex);
-        this.toVertex = new Integer(toVertex);
-        this.weight = new Double(weight);
+        this.fromVertex = Integer.valueOf(fromVertex);
+        this.toVertex = Integer.valueOf(toVertex);
+        this.weight = Double.valueOf(weight);
     }
 
     public int getFromVertex() {
@@ -22,9 +22,12 @@ class EdgeWithWeight implements EdgeWithWeightFunctions {
     }
 
 /*  Return a string representation of the edge in the form “(x,y,w)” where x is the
-    from vertex, y is the to vertex, and w is the weigh
+    from vertex, y is the to vertex, and w is the weight
 */
 	public String toString() {
-        return null;
+        String result = "(";
+        result += fromVertex + "," + toVertex + "," + weight;
+        result += ")";
+        return result;
     }
 }
