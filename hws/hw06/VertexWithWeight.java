@@ -3,8 +3,8 @@ class VertexWithWeight {
     private Double weight = Double.POSITIVE_INFINITY;
 
     VertexWithWeight(int v, double w) {
-        vertex = v;
-        weight = w;
+        vertex = Integer.valueOf(v);
+        weight = Double.valueOf(w);
     }
 
     public String toString() {
