@@ -52,7 +52,15 @@ class liu_WeightedGraph implements WeightedGraphFunctions {
     That is, there already exists a weighted edge with the from and to vertices
 */
 	public boolean addWeightedEdge(int from, int to, double weight) {
-        return false;
+        // if either vertex doesn't exist
+        if( !vertices.contains(Integer.valueOf(from)) || !vertices.contains(Integer.valueOf(to)) ) return false;
+
+        EdgeWithWeight edge = new EdgeWithWeight(from, to, weight);
+        // if edge already exists
+        if(edges.contains(edge)) return false;
+
+        edges.add(edge);
+        return true;
     }
 
 /*  Return a string representation of the graph
