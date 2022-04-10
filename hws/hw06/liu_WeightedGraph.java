@@ -73,6 +73,21 @@ class liu_WeightedGraph implements WeightedGraphFunctions {
     (10,9,1.0)}
 */
 	public String toString() {
-        return null;
+        StringBuilder result = new StringBuilder("G = (V, E)\n");
+
+        result.append("V = {");
+        vertices.forEach( (v) -> {result.append(v + ",");} );
+        // remove extra comma
+        if(result.charAt(result.length() - 1) == ',') result.deleteCharAt(result.length() - 1);
+        result.append("}\n");
+
+        result.append("E = {");
+        edges.forEach( (e) -> {
+            result.append("(" + e.getFromVertex() + "," + e.getToVertex() + "," + e.getWeight() + "),");
+        } );
+        if(result.charAt(result.length() - 1) == ',') result.deleteCharAt(result.length() - 1);
+        result.append("}\n");
+
+        return result.toString();
     }
 }
