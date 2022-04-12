@@ -90,8 +90,8 @@ class liu_WeightedGraph implements WeightedGraphFunctions {
             VertexWithWeight v = q.poll();
             int indexOfV = indexOfVertex(v.getVertex());
 
-            if(parents[indexOfV] == -1) break; // all remaining vertices in q are not reachable from source, so we can exit loop;
-            if(v.getVertex() == toVertex) break; // if v is destination, we can exit loop
+            // if(parents[indexOfV] == -1) break; // all remaining vertices in q are not reachable from source, so we can exit loop;
+            // if(v.getVertex() == toVertex) break; // if v is destination, we can exit loop
 
             for(EdgeWithWeight e : getAdjEdges(v.getVertex())) {
                 int u = e.getToVertex();
@@ -120,7 +120,7 @@ class liu_WeightedGraph implements WeightedGraphFunctions {
 
         // the weight of minimum cost past from source to dest. is the VertexWithWeight element in
         // costs at the index associated with the dest. vertex
-        result[1] = costs[indexOfDest];
+        result[1] = costs[indexOfDest].getWeight();
 
         // list of vertices in order of head -> tail : dest. -> source
         // the forward path is just path in order of tail -> head
