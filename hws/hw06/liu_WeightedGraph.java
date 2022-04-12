@@ -22,6 +22,8 @@ class liu_WeightedGraph implements WeightedGraphFunctions {
         ArrayDeque<Integer> visited = new ArrayDeque<>();
         visited.push(fromVertex);
 
+        // System.out.println("less than Nan: " + (1 < Double.NaN));
+        // depth-first search
         while(visited.size() > 0) {
             int u = visited.pop().intValue();
             for(EdgeWithWeight e : edges) {
@@ -51,7 +53,7 @@ class liu_WeightedGraph implements WeightedGraphFunctions {
                 }
             }
         }
-        
+
         return false;
     }
     */
@@ -60,14 +62,109 @@ class liu_WeightedGraph implements WeightedGraphFunctions {
     Returns Double.NaN if there is no path
 */
 	public double getMinimumWeight(int fromVertex, int toVertex) {
-        return 0;
+        double min = 0;
+
+        return Double.NaN;
+    }
+
+/*  Returns an array of edges whose fromVertex is equal to vertex
+*/
+    private EdgeWithWeight[] getAdjEdges(int vertex) {
+        ArrayList<EdgeWithWeight> result = new ArrayList<>();
+
+        for(EdgeWithWeight e : edges) {
+            if(e.getFromVertex() == vertex) result.add(e);
+        }
+
+        return result.toArray(new EdgeWithWeight[result.size()]);
+    }
+
+/*  Returns the index of the VertexWithWeight whose vertex equals v
+*/
+    private int indexOfVertex(int v) {
+        for(int i = 0; i < vertices.size(); i++) {
+            if(vertices.get(i) == v) return i;
+        }
+        return -1;
     }
 
 /*  Returns a minimum cost path from the fromVertex to the toVertex if there is one
     – that is, it returns an ordered list of edges from the fromVertex to the toVertex.
     Returns an EdgeWithWeight[] of length 0 if there is no path.
 */
-	public EdgeWithWeight[] getPath(int fromVertex, int toVertex) {
+    public EdgeWithWeight[] getPath(int fromVertex, int toVertex) { return new EdgeWithWeight[0]; }
+
+    public EdgeWithWeight[] getPath1(int fromVertex, int toVertex) {
+        PriorityQueue<VertexWithWeight> q = new PriorityQueue<>(vertices.size(), new VertexWithWeightComparator());
+        VertexWithWeight[] costs = new VertexWithWeight[vertices.size()];
+        int[] parents = new int[vertices.size()]; // used to trace path back when destination is reached
+
+        for(int i = 0; i < vertices.size(); i++) {
+            costs[i] = new VertexWithWeight(vertices.get(i), Double.POSITIVE_INFINITY);
+            parents[i] = -1;
+        }
+        int fromVertexIndex = indexOfVertex(fromVertex);
+
+        costs[fromVertexIndex] = new VertexWithWeight(vertices.get(fromVertexIndex), 0); // set cost of start to 0
+        parents[fromVertexIndex] = fromVertex; // set parent of start to itself
+        for(VertexWithWeight t : costs) q.add(t);
+
+        while(q.size() > 0) {
+            VertexWithWeight v = q.poll();
+            int indexOfV = indexOfVertex(v.getVertex());
+
+            if(parents[indexOfV] == -1) break; // all remaining vertices in q are not reachable from source, so we can exit loop;
+            if(v.getVertex() == toVertex) break; // if v is destination, we can exit loop
+
+            for(EdgeWithWeight e : getAdjEdges(v.getVertex())) {
+                int u = e.getToVertex();
+                // VertexWithWeight u ?
+                int indexOfU = indexOfVertex(u);
+                if(q.contains( costs[indexOfU] )) { // if u is still in q
+                    if( v.getWeight() + e.getWeight() < costs[indexOfU].getWeight() ) { // if weight from v to u < u's current weight
+                        costs[indexOfU].setWeight(v.getWeight() + e.getWeight()); // update u's weight to lesser weight
+                        // <UPDATE U'S WEIGHT IN Q>;
+                        for(VertexWithWeight p : q) if(p.getVertex() == u) { // find u in q
+                            q.remove(p); // update u's weight in q
+                            q.add(new VertexWithWeight(u, v.getWeight() + e.getWeight()));
+                            parents[indexOfU] = indexOfV; // update parent of u to be v
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return new EdgeWithWeight[0];
+    }
+
+	public EdgeWithWeight[] getPath2(int fromVertex, int toVertex) {
+        PriorityQueue<VertexWithWeight> minQ = new PriorityQueue<>(vertices.size(), new VertexWithWeightComparator());
+        VertexWithWeight[] verticesCost = new VertexWithWeight[vertices.size()];
+        int[] parents = new int[vertices.size()];
+
+        for(int i = 0; i < vertices.size(); i++) {
+            parents[i] = -1;
+            verticesCost[i] = new VertexWithWeight(vertices.get(i), Double.POSITIVE_INFINITY);
+        }
+        int fromVertexIndex = vertices.indexOf(Integer.valueOf(fromVertex));
+
+        parents[fromVertexIndex] = fromVertex;
+        verticesCost[fromVertexIndex] = new VertexWithWeight(vertices.get(fromVertexIndex), 0);
+
+        for(int i = 0; i < vertices.size(); i++) minQ.add(verticesCost[i]);
+
+        while(minQ.size() > 0) {
+            int v = minQ.poll().getVertex();
+            if(parents[v] == -1) break;
+            if(v == toVertex) break;
+            for(EdgeWithWeight e : edges) {
+                if(e.getFromVertex() == v) {
+                    int u = e.getToVertex();
+                    // if()
+                }
+            }
+        }
+
         return null;
     }
 
@@ -90,11 +187,14 @@ class liu_WeightedGraph implements WeightedGraphFunctions {
         // if either vertex doesn't exist
         if( !vertices.contains(Integer.valueOf(from)) || !vertices.contains(Integer.valueOf(to)) ) return false;
 
-        EdgeWithWeight edge = new EdgeWithWeight(from, to, weight);
         // if edge already exists
-        if(edges.contains(edge)) return false;
+        for(EdgeWithWeight e : edges) {
+            if(e.getFromVertex() == from && e.getToVertex() == to) return false;
+        }
 
+        EdgeWithWeight edge = new EdgeWithWeight(from, to, weight);
         edges.add(edge);
+
         return true;
     }
 
