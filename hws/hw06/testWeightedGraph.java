@@ -7,19 +7,19 @@ class testWeightedGraph
 			System.out.println("format: testWeightedGraph \"input file\" \"from vertex\" \"to vertex\"");
 			System.exit(0);
 		}
-		
-		WeightedGraph g = new WeightedGraph();
+
+		liu_WeightedGraph g = new liu_WeightedGraph();
 		int fromVertex = Integer.parseInt(args[1]);
 		int toVertex = Integer.parseInt(args[2]);
-		
+
 		try
 		{
 			java.io.BufferedReader input = new java.io.BufferedReader(new java.io.InputStreamReader(new java.io.FileInputStream(args[0])));
 			String inn;
-			
+
 			// get rid of the first line
 			inn = input.readLine();
-			
+
 			// get the list of vertices
 			inn = input.readLine();
 			inn = inn.substring(4);
@@ -29,7 +29,7 @@ class testWeightedGraph
 				int newVertex = Integer.parseInt(st.nextToken());
 				g.addVertex(newVertex);
 			}
-			
+
 			// get the list of edges
 			inn = input.readLine();
 			inn = inn.substring(4);
@@ -50,7 +50,7 @@ class testWeightedGraph
 			System.out.println(e.toString());
 			System.exit(0);
 		}
-		
+
 		boolean hasPathResult = g.hasPath(fromVertex, toVertex);
 		System.out.println("hasPathResult = " + hasPathResult);
 		double minimumWeightResult = g.getMinimumWeight(fromVertex, toVertex);
@@ -66,7 +66,7 @@ class testWeightedGraph
 			}
 		}
 		System.out.println();
-		
+
 		System.out.println(g.toString());
 	}
 }
