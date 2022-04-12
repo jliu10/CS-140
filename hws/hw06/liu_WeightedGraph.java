@@ -151,59 +151,6 @@ class liu_WeightedGraph implements WeightedGraphFunctions {
         // return new EdgeWithWeight[0];
     }
 
-    public EdgeWithWeight[] getPath1(int fromVertex, int toVertex) {
-        PriorityQueue<VertexWithWeight> q = new PriorityQueue<>(vertices.size(), new VertexWithWeightComparator());
-        VertexWithWeight[] costs = new VertexWithWeight[vertices.size()];
-        int[] parents = new int[vertices.size()]; // used to trace path back when destination is reached
-
-        for(int i = 0; i < vertices.size(); i++) {
-            costs[i] = new VertexWithWeight(vertices.get(i), Double.POSITIVE_INFINITY);
-            parents[i] = -1;
-        }
-        int fromVertexIndex = indexOfVertex(fromVertex);
-
-        costs[fromVertexIndex] = new VertexWithWeight(vertices.get(fromVertexIndex), 0); // set cost of start to 0
-        parents[fromVertexIndex] = fromVertex; // set parent of start to itself
-        for(VertexWithWeight t : costs) q.add(t);
-
-        while(q.size() > 0) {
-            VertexWithWeight v = q.poll();
-            int indexOfV = indexOfVertex(v.getVertex());
-
-            if(parents[indexOfV] == -1) break; // all remaining vertices in q are not reachable from source, so we can exit loop;
-            if(v.getVertex() == toVertex) break; // if v is destination, we can exit loop
-
-            for(EdgeWithWeight e : getAdjEdges(v.getVertex())) {
-                int u = e.getToVertex();
-                // VertexWithWeight u ?
-                int indexOfU = indexOfVertex(u);
-                if(q.contains( costs[indexOfU] )) { // if u is still in q
-                    if( v.getWeight() + e.getWeight() < costs[indexOfU].getWeight() ) { // if weight from v to u < u's current weight
-                        costs[indexOfU].setWeight(v.getWeight() + e.getWeight()); // update u's weight to lesser weight
-                        // <UPDATE U'S WEIGHT IN Q>;
-                        for(VertexWithWeight p : q) if(p.getVertex() == u) { // find u in q
-                            q.remove(p); // update u's weight in q
-                            q.add(new VertexWithWeight(u, v.getWeight() + e.getWeight()));
-                            parents[indexOfU] = indexOfV; // update parent of u to be v
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-        return new EdgeWithWeight[0];
-    }
-
-/*  Add a vertex to the weighted graph
-    If the vertex already exists, do not add it
-*/
-	public boolean addVertex(int v) {
-        if(vertices.contains(v)) return false;
-        vertices.add(v);
-        return true;
-    }
-
-
 /*  Add a weighted edge to the weighted graph
     If the weighted edge already exists, do not add it
     That is, there already exists a weighted edge with the from and to vertices
