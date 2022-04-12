@@ -151,6 +151,16 @@ class liu_WeightedGraph implements WeightedGraphFunctions {
         // return new EdgeWithWeight[0];
     }
 
+/*  Add a vertex to the weighted graph
+    If the vertex already exists, do not add it
+*/
+	public boolean addVertex(int v) {
+        if(vertices.contains(v)) return false;
+        vertices.add(v);
+        return true;
+    }
+
+
 /*  Add a weighted edge to the weighted graph
     If the weighted edge already exists, do not add it
     That is, there already exists a weighted edge with the from and to vertices
