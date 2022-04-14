@@ -31,4 +31,8 @@ class VertexWithWeight {
         return false;
     }
 
+    public int hashCode() {
+        return vertex.intValue();
+    }
+
 }
