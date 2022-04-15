@@ -3,7 +3,7 @@ import java.util.*;
 class liu_WeightedGraph implements WeightedGraphFunctions {
     private ArrayList<Integer> vertices;
     private ArrayList<EdgeWithWeight> edges;
-    private boolean debugOutput = true;
+    private boolean debugOutput = false;
 
     liu_WeightedGraph() {
         vertices = new ArrayList<>();
@@ -19,7 +19,6 @@ class liu_WeightedGraph implements WeightedGraphFunctions {
 */
     public boolean hasPath(int fromVertex, int toVertex) {
         return ((Boolean) dijkstra(fromVertex, toVertex)[0]).booleanValue();
-        // return false;
     }
 
 /*  Returns the cost of a minimum cost path from the fromVertex to the toVertex.
@@ -27,7 +26,6 @@ class liu_WeightedGraph implements WeightedGraphFunctions {
 */
 	public double getMinimumWeight(int fromVertex, int toVertex) {
         return ((Double) dijkstra(fromVertex, toVertex)[1]).doubleValue();
-        // return Double.NaN;
     }
 
 /*  Returns an array of edges whose fromVertex is equal to vertex
@@ -51,11 +49,17 @@ class liu_WeightedGraph implements WeightedGraphFunctions {
         return -1;
     }
 
-/*  Returns the edge with the specified vertices
+/*  Returns the edge with the specified vertex indexes
 */
-    private EdgeWithWeight getEdge(int fromVertex, int toVertex) {
+    private EdgeWithWeight getEdge(int fromVertexIndex, int toVertexIndex) {
         for(EdgeWithWeight e : edges) {
-            if(e.getFromVertex() == fromVertex && e.getToVertex() == toVertex) return e;
+            int from = vertices.get(fromVertexIndex);
+            int to = vertices.get(toVertexIndex);
+            // System.out.println("searching for edge ("+from+","+to+")");
+            if(e.getFromVertex() == from && e.getToVertex() == to) return e;
+        }
+        if(debugOutput) {
+            // System.out.println("problem in getEdge()");
         }
         return null;
     }
@@ -90,17 +94,12 @@ class liu_WeightedGraph implements WeightedGraphFunctions {
             VertexWithWeight v = q.poll();
             int indexOfV = indexOfVertex(v.getVertex());
 
-            // if(parents[indexOfV] == -1) break; // all remaining vertices in q are not reachable from source, so we can exit loop;
-            // if(v.getVertex() == toVertex) break; // if v is destination, we can exit loop
-
             for(EdgeWithWeight e : getAdjEdges(v.getVertex())) {
                 int u = e.getToVertex();
-                // VertexWithWeight u ?
                 int indexOfU = indexOfVertex(u);
                 if(q.contains( costs[indexOfU] )) { // if u is still in q
                     if( v.getWeight() + e.getWeight() < costs[indexOfU].getWeight() ) { // if weight from v to u < u's current weight
                         costs[indexOfU].setWeight(v.getWeight() + e.getWeight()); // update u's weight to lesser weight
-                        // <UPDATE U'S WEIGHT IN Q>;
                         for(VertexWithWeight p : q) if(p.getVertex() == u) { // find u in q
                             q.remove(p); // update u's weight in q
                             q.add(new VertexWithWeight(u, v.getWeight() + e.getWeight()));
@@ -114,9 +113,7 @@ class liu_WeightedGraph implements WeightedGraphFunctions {
 
         // if parent array value for destination has not -1, then there exists a path from the source
         if(parents[indexOfDest] != -1) result[0] = true;
-        else {
-            return result;
-        }
+        else return result;
 
         // the weight of minimum cost past from source to dest. is the VertexWithWeight element in
         // costs at the index associated with the dest. vertex
@@ -125,12 +122,14 @@ class liu_WeightedGraph implements WeightedGraphFunctions {
         // list of vertices in order of head -> tail : dest. -> source
         // the forward path is just path in order of tail -> head
         LinkedList<Integer> path = new LinkedList<>();
-        path.add(indexOfDest);
+        path.addLast(indexOfDest);
+
         // backtrack path using parents[]
-        while(path.getLast().intValue() != fromVertex) {
+        while(path.getLast().intValue() != fromVertexIndex) {
             // if(reversePath.getLast() == -1) break;
-            path.add(parents[path.getLast()]);
+            path.addLast(parents[path.getLast()]);
         }
+        // System.out.println("LinkedList = " + toStringLL(path));
 
         EdgeWithWeight[] edgePath = new EdgeWithWeight[path.size() - 1];
         for(int i = 0; i < edgePath.length; i++) {
@@ -142,13 +141,27 @@ class liu_WeightedGraph implements WeightedGraphFunctions {
         return result;
     }
 
+    public String toStringLL(LinkedList<Integer> list) {
+        String result = "head-{";
+        for(Integer n : list) {
+            result += n + ",";
+        }
+        if(result.charAt(result.length() - 1) == ',') result = result.substring(0,result.length() - 1);
+        return result + "}-tail";
+    }
+
 /*  Returns a minimum cost path from the fromVertex to the toVertex if there is one
     – that is, it returns an ordered list of edges from the fromVertex to the toVertex.
     Returns an EdgeWithWeight[] of length 0 if there is no path.
 */
     public EdgeWithWeight[] getPath(int fromVertex, int toVertex) {
+        if(debugOutput) {
+            System.out.println("TESTING getEdge():");
+            EdgeWithWeight e1 = edges.get(0);
+            EdgeWithWeight e2 = getEdge(e1.getFromVertex(), e1.getToVertex());
+            System.out.println(e2 + " should be not null");
+        }
         return ((EdgeWithWeight[]) dijkstra(fromVertex, toVertex)[2]);
-        // return new EdgeWithWeight[0];
     }
 
 /*  Add a vertex to the weighted graph
