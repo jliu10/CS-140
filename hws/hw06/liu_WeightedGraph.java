@@ -126,7 +126,6 @@ class liu_WeightedGraph implements WeightedGraphFunctions {
 
         // backtrack path using parents[]
         while(path.getLast().intValue() != fromVertexIndex) {
-            // if(reversePath.getLast() == -1) break;
             path.addLast(parents[path.getLast()]);
         }
         // System.out.println("LinkedList = " + toStringLL(path));
