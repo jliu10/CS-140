@@ -31,7 +31,7 @@ class liu_ManageCarData implements ManageCarDataFunctions
             while(sc.hasNextLine()) {
                 Scanner line = new Scanner(sc.nextLine());
                 String id = line.next();
-                System.out.println("id = "+id);
+                // System.out.println("id = "+id);
                 int fuelEcon = Integer.parseInt( line.next() );
                 int fuelCap = Integer.parseInt( line.next() );
                 double currFuel = Double.parseDouble( line.next() );
@@ -45,5 +45,11 @@ class liu_ManageCarData implements ManageCarDataFunctions
         catch(Exception e) {
             System.out.println(e);
         }
+    }
+
+    public ArrayList<CarFunctions> getCarList() {
+        ArrayList<CarFunctions> t = new ArrayList<>(carList.size());
+        for(CarFunctions c : carList) t.add(c);
+        return t;
     }
 }
