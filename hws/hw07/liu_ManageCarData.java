@@ -89,6 +89,42 @@ class liu_ManageCarData implements ManageCarDataFunctions
     }
 
     public ArrayList<String> getCarListByTotalRangeViaPoll(double minTotalRange, double maxTotalRange) {
-        
+        ArrayList<String> t = new ArrayList<>(carList.size());
+        PriorityQueue<CarFunctions> list = getCarListByTotalRange();
+        while(list.size() > 0) {
+            CarFunctions currCar = list.poll();
+            if( currCar.getTotalRangeInMiles() >= minTotalRange && currCar.getTotalRangeInMiles() <= maxTotalRange ) {
+                String carString = currCar.toString();
+                // for(int i = 0; i < carList.size(); i++) {
+                //     if(carList.get(i).equals(currCar)) carString += "\ti";
+                // }
+                // carString += "\t" + carList.indexOf(currCar);
+
+                for(int i = 0; i < carList.size(); i++) {
+                    if( carList.get(i).equals(currCar) ) carString += "\ti";
+                    if( carList.get(i).getFuelEconomyInMilesPerGallon() == currCar.getFuelEconomyInMilesPerGallon() ) carString += "\ti";
+                }
+            }
+        }
+
+        return t;
+    }
+
+    public ArrayList<String> getCarListByRemainingRangeViaPoll(double minRemainingRange, double maxRemainingRange) {
+        ArrayList<String> t = new ArrayList<>(carList.size());
+        PriorityQueue<CarFunctions> list = getCarListByRemainingRange();
+        while(list.size() > 0) {
+            CarFunctions currCar = list.poll();
+            if( currCar.getRemainingRangeInMiles() >= minRemainingRange && currCar.getRemainingRangeInMiles() <= maxRemainingRange ) {
+                String carString = currCar.toString();
+
+                for(int i = 0; i < carList.size(); i++) {
+                    if( carList.get(i).equals(currCar) ) carString += "\ti";
+                    if( carList.get(i).getFuelEconomyInMilesPerGallon() == currCar.getFuelEconomyInMilesPerGallon() ) carString += "\ti";
+                }
+            }
+        }
+
+        return t;
     }
 }
