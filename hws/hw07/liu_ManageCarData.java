@@ -95,15 +95,14 @@ class liu_ManageCarData implements ManageCarDataFunctions
             CarFunctions currCar = list.poll();
             if( currCar.getTotalRangeInMiles() >= minTotalRange && currCar.getTotalRangeInMiles() <= maxTotalRange ) {
                 String carString = currCar.toString();
-                // for(int i = 0; i < carList.size(); i++) {
-                //     if(carList.get(i).equals(currCar)) carString += "\ti";
-                // }
-                // carString += "\t" + carList.indexOf(currCar);
+                String equalCar = "";
+                String equalEcons = "";
 
                 for(int i = 0; i < carList.size(); i++) {
-                    if( carList.get(i).equals(currCar) ) carString += "\ti";
-                    if( carList.get(i).getFuelEconomyInMilesPerGallon() == currCar.getFuelEconomyInMilesPerGallon() ) carString += "\ti";
+                    if( carList.get(i).equals(currCar) ) equalCar += "\t" + i;
+                    if( carList.get(i).getFuelEconomyInMilesPerGallon() == currCar.getFuelEconomyInMilesPerGallon() ) equalEcons += "\t" + i;
                 }
+                t.add(carString + equalCar + equalEcons);
             }
         }
 
@@ -117,11 +116,14 @@ class liu_ManageCarData implements ManageCarDataFunctions
             CarFunctions currCar = list.poll();
             if( currCar.getRemainingRangeInMiles() >= minRemainingRange && currCar.getRemainingRangeInMiles() <= maxRemainingRange ) {
                 String carString = currCar.toString();
+                String equalCar = "";
+                String equalEcons = "";
 
                 for(int i = 0; i < carList.size(); i++) {
-                    if( carList.get(i).equals(currCar) ) carString += "\ti";
-                    if( carList.get(i).getFuelEconomyInMilesPerGallon() == currCar.getFuelEconomyInMilesPerGallon() ) carString += "\ti";
+                    if( carList.get(i).equals(currCar) ) equalCar += "\t" + i;
+                    if( carList.get(i).getFuelEconomyInMilesPerGallon() == currCar.getFuelEconomyInMilesPerGallon() ) equalEcons += "\t" + i;
                 }
+                t.add(carString + equalCar + equalEcons);
             }
         }
 
