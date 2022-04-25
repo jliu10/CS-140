@@ -47,9 +47,48 @@ class liu_ManageCarData implements ManageCarDataFunctions
         }
     }
 
+    // Return a copy of carList
     public ArrayList<CarFunctions> getCarList() {
         ArrayList<CarFunctions> t = new ArrayList<>(carList.size());
         for(CarFunctions c : carList) t.add(c);
         return t;
+    }
+
+    // Return a copy of carListByTotalRange
+    public PriorityQueue<CarFunctions> getCarListByTotalRange() {
+        PriorityQueue<CarFunctions> t = new PriorityQueue<>(carList.size(), new TotalRangeComparator());
+        for(CarFunctions c : carList) t.add(c);
+        return t;
+    }
+
+    // Return a copy of carListByTotalRange using Iterator
+    public ArrayList<CarFunctions> getCarListByTotalRangeUsingIterator() {
+        ArrayList<CarFunctions> t = new ArrayList<>(carList.size());
+        Iterator<CarFunctions> it = carListByTotalRange.iterator();
+        while(it.hasNext()) {
+            t.add(it.next());
+        }
+        return t;
+    }
+
+    // Return a copy of carListByRemainingRange
+    public PriorityQueue<CarFunctions> getCarListByRemainingRange() {
+        PriorityQueue<CarFunctions> t = new PriorityQueue<>(carList.size(), new RemainingRangeComparator());
+        for(CarFunctions c : carList) t.add(c);
+        return t;
+    }
+
+    // Return a copy of carListByRemainingRange using Iterator
+    public ArrayList<CarFunctions> getCarListByRemainingRangeUsingIterator() {
+        ArrayList<CarFunctions> t = new ArrayList<>(carList.size());
+        Iterator<CarFunctions> it = carListByRemainingRange.iterator();
+        while(it.hasNext()) {
+            t.add(it.next());
+        }
+        return t;
+    }
+
+    public ArrayList<String> getCarListByTotalRangeViaPoll(double minTotalRange, double maxTotalRange) {
+        
     }
 }
