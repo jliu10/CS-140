@@ -13,11 +13,11 @@ class testCarData
 		}
 
 		// get the command line arguments
-		String filename = "";
-		double minTotalRange = 0.0;
-		double maxTotalRange = 0.0;
-		double minRemainingRange = 0.0;
-		double maxRemainingRange = 0.0;
+		String filename = args[0];
+		double minTotalRange = Double.parseDouble( args[1] );
+		double maxTotalRange = Double.parseDouble( args[2] );
+		double minRemainingRange = Double.parseDouble( args[3] );
+		double maxRemainingRange = Double.parseDouble( args[4] );
 
 		// create a ManageCarData object
 		ManageCarDataFunctions manageCarData = new liu_ManageCarData();
