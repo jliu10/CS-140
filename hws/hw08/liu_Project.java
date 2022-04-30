@@ -38,8 +38,22 @@ class liu_Project {
         GridBagConstraints leftButtonPanelConstraints = new GridBagConstraints();
 
         // left buttons and labels
-        JButton sortIntsButton = new JButton("sort ints");
-        JLabel sortIntsLabel = new JLabel("sort ints");
+        JButton addToButton = new JButton("add to ");
+        JLabel addToLabel = new JLabel("no result");
+        JButton addToBstButton = new JButton("add to bst");
+        JLabel addToBstLabel = new JLabel("no result");
+        JButton addToTreeSetButton = new JButton("add to tree set");
+        JLabel addToTreeSetLabel = new JLabel("no result");
+        JButton addToPriorityQButton = new JButton("add to priority queue");
+        JLabel addToPriorityQLabel = new JLabel("no result");
+        JButton addToHashSetButton = new JButton("add to hashset");
+        JLabel addToHashSetLabel = new JLabel("no result");
+        JButton addToArrayListButton = new JButton("add to arraylist");
+        JLabel addToArrayListLabel = new JLabel("no result");
+        JButton addToSortedArrayButton = new JButton("add to sorted arraylist");
+        JLabel addToSortedArrayLabel = new JLabel("no result");
+        JButton addToArrayButton = new JButton("add to array");
+        JLabel addToArrayLabel = new JLabel("no result");
 
 
 
