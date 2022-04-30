@@ -39,22 +39,50 @@ class liu_Project {
 
         // left buttons and labels
         JButton sortIntsButton = new JButton("sort ints");
+        sortIntsButton.setEnabled(false);
+        sortIntsButton.addActionListener( new ButtonActionListener(sortIntsButton) );
         JLabel sortIntsLabel = new JLabel("no result");
         JButton addToBstButton = new JButton("add to bst");
+        addToBstButton.setEnabled(false);
+        addToBstButton.addActionListener( new ButtonActionListener(addToBstButton) );
         JLabel addToBstLabel = new JLabel("no result");
         JButton addToTreeSetButton = new JButton("add to tree set");
+        addToTreeSetButton.setEnabled(false);
+        addToTreeSetButton.addActionListener( new ButtonActionListener(addToTreeSetButton) );
         JLabel addToTreeSetLabel = new JLabel("no result");
         JButton addToPriorityQButton = new JButton("add to priority queue");
+        addToPriorityQButton.setEnabled(false);
+        addToPriorityQButton.addActionListener( new ButtonActionListener(addToPriorityQButton) );
         JLabel addToPriorityQLabel = new JLabel("no result");
         JButton addToHashSetButton = new JButton("add to hashset");
+        addToHashSetButton.setEnabled(false);
+        addToHashSetButton.addActionListener( new ButtonActionListener(addToHashSetButton) );
         JLabel addToHashSetLabel = new JLabel("no result");
         JButton addToArrayListButton = new JButton("add to arraylist");
+        addToArrayListButton.setEnabled(false);
+        addToArrayListButton.addActionListener( new ButtonActionListener(addToArrayListButton) );
         JLabel addToArrayListLabel = new JLabel("no result");
         JButton addToSortedArrayButton = new JButton("add to sorted arraylist");
+        addToSortedArrayButton.setEnabled(false);
+        addToSortedArrayButton.addActionListener( new ButtonActionListener(addToSortedArrayButton) );
         JLabel addToSortedArrayLabel = new JLabel("no result");
         JButton addToArrayButton = new JButton("add to array");
+        addToArrayButton.setEnabled(false);
+        addToArrayButton.addActionListener( new ButtonActionListener(addToArrayButton) );
         JLabel addToArrayLabel = new JLabel("no result");
+        leftButtonPanelConstraints.weightx = 1;
+        leftButtonPanelConstraints.weighty = 1;
+        leftButtonPanelConstraints.fill = GridBagConstraints.NONE;
+        leftButtonPanelConstraints.anchor = GridBagConstraints.LINE_START;
 
+        leftButtonPanelConstraints.gridx = 0;
+        leftButtonPanelConstraints.gridy = 0;
+        leftButtonPanelConstraints.gridwidth = 1;
+        leftGridBagLayout.setConstraints(sortIntsButton, leftButtonPanelConstraints);
+        leftButtonPanelConstraints.gridx = 1;
+        leftButtonPanelConstraints.gridy = 0;
+        leftButtonPanelConstraints.gridwidth = GridBagConstraints.REMAINDER;
+        leftGridBagLayout.setConstraints(sortIntsLabel, leftButtonPanelConstraints);
 
 
         // right button panel
@@ -100,6 +128,11 @@ class liu_Project {
         public void actionPerformed(ActionEvent e)
         {
             System.out.println("action performed on " + b.getText() + " button");
+            switch(b.getText()) {
+                case "":
+                    break;
+                default:
+            }
         }
     }
 
