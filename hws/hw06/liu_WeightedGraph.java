@@ -73,7 +73,7 @@ class liu_WeightedGraph implements WeightedGraphFunctions {
         int indexOfDest = indexOfVertex(toVertex); // index of destination vertex
         if(fromVertexIndex == -1 || indexOfDest == -1) return result; // invalid input
 
-        PriorityQueue<VertexWithWeight> q = new PriorityQueue<>(vertices.size(), new VertexWithWeightComparator());
+        PriorityQueue<VertexWithWeight> q = new PriorityQueue<>(vertices.size(), new VertexWithWeightWeightComparator());
         VertexWithWeight[] costs = new VertexWithWeight[vertices.size()];
         int[] parents = new int[vertices.size()]; // used to trace path back when destination is reached
 
