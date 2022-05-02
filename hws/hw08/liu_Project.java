@@ -24,6 +24,24 @@ class liu_Project {
     private static JButton addToArrayButton;
     private static JLabel addToArrayLabel;
     private static ArrayList<JButton> leftButtons = new ArrayList<>(8); // facilitate disabling/enabling
+    private static ArrayList<JLabel> leftLabels = new ArrayList<>(8);
+    private static JButton searchSortedIntsButton;
+    private static JLabel searchSortedIntsLabel;
+    private static JButton searchBstButton;
+    private static JLabel searchBstLabel;
+    private static JButton searchTreeSetButton;
+    private static JLabel searchTreeSetLabel;
+    private static JButton searchPriorityQButton;
+    private static JLabel searchPriorityQLabel;
+    private static JButton searchHashSetButton;
+    private static JLabel searchHashSetLabel;
+    private static JButton searchArrayListButton;
+    private static JLabel searchArrayListLabel;
+    private static JButton searchSortedArrayButton;
+    private static JLabel searchSortedArrayLabel;
+    private static JButton searchArrayButton;
+    private static JLabel searchArrayLabel;
+    private static ArrayList<JButton> rightButtons = new ArrayList<>(8); // facilitate disabling/enabling
     private File sortFile;
     private File searchFile;
 
@@ -92,101 +110,33 @@ class liu_Project {
         leftButtons.add(addToSortedArrayButton);
         leftButtons.add(addToArrayButton);
         for(JButton b : leftButtons) b.setEnabled(false);
+        leftLabels.add(sortIntsLabel);
+        leftLabels.add(addToBstLabel);
+        leftLabels.add(addToTreeSetLabel);
+        leftLabels.add(addToPriorityQLabel);
+        leftLabels.add(addToHashSetLabel);
+        leftLabels.add(addToArrayListLabel);
+        leftLabels.add(addToSortedArrayLabel);
+        leftLabels.add(addToArrayLabel);
 
         leftButtonPanelConstraints.weightx = 1;
         leftButtonPanelConstraints.weighty = 1;
         leftButtonPanelConstraints.fill = GridBagConstraints.NONE;
         leftButtonPanelConstraints.anchor = GridBagConstraints.LINE_START;
-        // sort ints
-        leftButtonPanelConstraints.gridx = 0;
-        leftButtonPanelConstraints.gridy = 0;
-        leftButtonPanelConstraints.gridwidth = 1;
-        leftGridBagLayout.setConstraints(sortIntsButton, leftButtonPanelConstraints);
-        leftButtonPanelConstraints.gridx = 1;
-        leftButtonPanelConstraints.gridy = 0;
-        leftButtonPanelConstraints.gridwidth = GridBagConstraints.REMAINDER;
-        leftGridBagLayout.setConstraints(sortIntsLabel, leftButtonPanelConstraints);
-        // add to bst
-        leftButtonPanelConstraints.gridx = 0;
-        leftButtonPanelConstraints.gridy = 1;
-        leftButtonPanelConstraints.gridwidth = 1;
-        leftGridBagLayout.setConstraints(addToBstButton, leftButtonPanelConstraints);
-        leftButtonPanelConstraints.gridx = 1;
-        leftButtonPanelConstraints.gridy = 1;
-        leftButtonPanelConstraints.gridwidth = GridBagConstraints.REMAINDER;
-        leftGridBagLayout.setConstraints(addToBstLabel, leftButtonPanelConstraints);
-        // add to treeset
-        leftButtonPanelConstraints.gridx = 0;
-        leftButtonPanelConstraints.gridy = 2;
-        leftButtonPanelConstraints.gridwidth = 1;
-        leftGridBagLayout.setConstraints(addToTreeSetButton, leftButtonPanelConstraints);
-        leftButtonPanelConstraints.gridx = 1;
-        leftButtonPanelConstraints.gridy = 2;
-        leftButtonPanelConstraints.gridwidth = GridBagConstraints.REMAINDER;
-        leftGridBagLayout.setConstraints(addToTreeSetLabel, leftButtonPanelConstraints);
-        // add to priority queue
-        leftButtonPanelConstraints.gridx = 0;
-        leftButtonPanelConstraints.gridy = 3;
-        leftButtonPanelConstraints.gridwidth = 1;
-        leftGridBagLayout.setConstraints(addToPriorityQButton, leftButtonPanelConstraints);
-        leftButtonPanelConstraints.gridx = 1;
-        leftButtonPanelConstraints.gridy = 3;
-        leftButtonPanelConstraints.gridwidth = GridBagConstraints.REMAINDER;
-        leftGridBagLayout.setConstraints(addToPriorityQLabel, leftButtonPanelConstraints);
-        // add to hashset
-        leftButtonPanelConstraints.gridx = 0;
-        leftButtonPanelConstraints.gridy = 4;
-        leftButtonPanelConstraints.gridwidth = 1;
-        leftGridBagLayout.setConstraints(addToHashSetButton, leftButtonPanelConstraints);
-        leftButtonPanelConstraints.gridx = 1;
-        leftButtonPanelConstraints.gridy = 4;
-        leftButtonPanelConstraints.gridwidth = GridBagConstraints.REMAINDER;
-        leftGridBagLayout.setConstraints(addToHashSetLabel, leftButtonPanelConstraints);
-        // add to arraylist
-        leftButtonPanelConstraints.gridx = 0;
-        leftButtonPanelConstraints.gridy = 5;
-        leftButtonPanelConstraints.gridwidth = 1;
-        leftGridBagLayout.setConstraints(addToArrayListButton, leftButtonPanelConstraints);
-        leftButtonPanelConstraints.gridx = 1;
-        leftButtonPanelConstraints.gridy = 5;
-        leftButtonPanelConstraints.gridwidth = GridBagConstraints.REMAINDER;
-        leftGridBagLayout.setConstraints(addToArrayListLabel, leftButtonPanelConstraints);
-        // add to sorted arraylist
-        leftButtonPanelConstraints.gridx = 0;
-        leftButtonPanelConstraints.gridy = 6;
-        leftButtonPanelConstraints.gridwidth = 1;
-        leftGridBagLayout.setConstraints(addToSortedArrayButton, leftButtonPanelConstraints);
-        leftButtonPanelConstraints.gridx = 1;
-        leftButtonPanelConstraints.gridy = 6;
-        leftButtonPanelConstraints.gridwidth = GridBagConstraints.REMAINDER;
-        leftGridBagLayout.setConstraints(addToSortedArrayLabel, leftButtonPanelConstraints);
-        // add to array
-        leftButtonPanelConstraints.gridx = 0;
-        leftButtonPanelConstraints.gridy = 7;
-        leftButtonPanelConstraints.gridwidth = 1;
-        leftGridBagLayout.setConstraints(addToArrayButton, leftButtonPanelConstraints);
-        leftButtonPanelConstraints.gridx = 1;
-        leftButtonPanelConstraints.gridy = 7;
-        leftButtonPanelConstraints.gridwidth = GridBagConstraints.REMAINDER;
-        leftGridBagLayout.setConstraints(addToArrayLabel, leftButtonPanelConstraints);
+        for(int i = 0; i < leftButtons.size(); i++) {
+            leftButtonPanelConstraints.gridx = 0;
+            leftButtonPanelConstraints.gridy = i;
+            leftButtonPanelConstraints.gridwidth = 1;
+            leftGridBagLayout.setConstraints(leftButtons.get(i), leftButtonPanelConstraints);
+            leftButtonPanelConstraints.gridx = 1;
+            leftButtonPanelConstraints.gridy = i;
+            leftButtonPanelConstraints.gridwidth = GridBagConstraints.REMAINDER;
+            leftGridBagLayout.setConstraints(leftLabels.get(i), leftButtonPanelConstraints);
+        }
 
         // add buttons to leftButtonPanel
-        leftButtonPanel.add(sortIntsButton);
-        leftButtonPanel.add(sortIntsLabel);
-        leftButtonPanel.add(addToBstButton);
-        leftButtonPanel.add(addToBstLabel);
-        leftButtonPanel.add(addToTreeSetButton);
-        leftButtonPanel.add(addToTreeSetLabel);
-        leftButtonPanel.add(addToPriorityQButton);
-        leftButtonPanel.add(addToPriorityQLabel);
-        leftButtonPanel.add(addToHashSetButton);
-        leftButtonPanel.add(addToHashSetLabel);
-        leftButtonPanel.add(addToArrayListButton);
-        leftButtonPanel.add(addToArrayListLabel);
-        leftButtonPanel.add(addToSortedArrayButton);
-        leftButtonPanel.add(addToSortedArrayLabel);
-        leftButtonPanel.add(addToArrayButton);
-        leftButtonPanel.add(addToArrayLabel);
+        for(JButton b : leftButtons) leftButtonPanel.add(b);
+        for(JLabel l : leftLabels) leftButtonPanel.add(l);
 
         // right button panel
         JPanel rightButtonPanel = new JPanel();
