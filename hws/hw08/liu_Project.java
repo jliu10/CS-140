@@ -1,10 +1,31 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.*;
+import java.util.*;
 
 class liu_Project {
     private static int width = 750;
     private static int height = 350;
+    private static JButton sortIntsButton;
+    private static JLabel sortIntsLabel;
+    private static JButton addToBstButton;
+    private static JLabel addToBstLabel;
+    private static JButton addToTreeSetButton;
+    private static JLabel addToTreeSetLabel;
+    private static JButton addToPriorityQButton;
+    private static JLabel addToPriorityQLabel;
+    private static JButton addToHashSetButton;
+    private static JLabel addToHashSetLabel;
+    private static JButton addToArrayListButton;
+    private static JLabel addToArrayListLabel;
+    private static JButton addToSortedArrayButton;
+    private static JLabel addToSortedArrayLabel;
+    private static JButton addToArrayButton;
+    private static JLabel addToArrayLabel;
+    private static ArrayList<JButton> leftButtons = new ArrayList<>(8); // facilitate disabling/enabling
+    private File sortFile;
+    private File searchFile;
 
     public static void main(String[] args) {
         JFrame f = new JFrame();
@@ -38,38 +59,39 @@ class liu_Project {
         GridBagConstraints leftButtonPanelConstraints = new GridBagConstraints();
 
         // left buttons and labels
-        JButton sortIntsButton = new JButton("sort ints");
-        sortIntsButton.setEnabled(false);
+        sortIntsButton = new JButton("sort ints");
         sortIntsButton.addActionListener( new ButtonActionListener(sortIntsButton) );
-        JLabel sortIntsLabel = new JLabel("no result");
-        JButton addToBstButton = new JButton("add to bst");
-        addToBstButton.setEnabled(false);
+        sortIntsLabel = new JLabel("no result");
+        addToBstButton = new JButton("add to bst");
         addToBstButton.addActionListener( new ButtonActionListener(addToBstButton) );
-        JLabel addToBstLabel = new JLabel("no result");
-        JButton addToTreeSetButton = new JButton("add to tree set");
-        addToTreeSetButton.setEnabled(false);
+        addToBstLabel = new JLabel("no result");
+        addToTreeSetButton = new JButton("add to tree set");
         addToTreeSetButton.addActionListener( new ButtonActionListener(addToTreeSetButton) );
-        JLabel addToTreeSetLabel = new JLabel("no result");
-        JButton addToPriorityQButton = new JButton("add to priority queue");
-        addToPriorityQButton.setEnabled(false);
+        addToTreeSetLabel = new JLabel("no result");
+        addToPriorityQButton = new JButton("add to priority queue");
         addToPriorityQButton.addActionListener( new ButtonActionListener(addToPriorityQButton) );
-        JLabel addToPriorityQLabel = new JLabel("no result");
-        JButton addToHashSetButton = new JButton("add to hashset");
-        addToHashSetButton.setEnabled(false);
+        addToPriorityQLabel = new JLabel("no result");
+        addToHashSetButton = new JButton("add to hashset");
         addToHashSetButton.addActionListener( new ButtonActionListener(addToHashSetButton) );
-        JLabel addToHashSetLabel = new JLabel("no result");
-        JButton addToArrayListButton = new JButton("add to arraylist");
-        addToArrayListButton.setEnabled(false);
+        addToHashSetLabel = new JLabel("no result");
+        addToArrayListButton = new JButton("add to arraylist");
         addToArrayListButton.addActionListener( new ButtonActionListener(addToArrayListButton) );
-        JLabel addToArrayListLabel = new JLabel("no result");
-        JButton addToSortedArrayButton = new JButton("add to sorted arraylist");
-        addToSortedArrayButton.setEnabled(false);
+        addToArrayListLabel = new JLabel("no result");
+        addToSortedArrayButton = new JButton("add to sorted arraylist");
         addToSortedArrayButton.addActionListener( new ButtonActionListener(addToSortedArrayButton) );
-        JLabel addToSortedArrayLabel = new JLabel("no result");
-        JButton addToArrayButton = new JButton("add to array");
-        addToArrayButton.setEnabled(false);
+        addToSortedArrayLabel = new JLabel("no result");
+        addToArrayButton = new JButton("add to array");
         addToArrayButton.addActionListener( new ButtonActionListener(addToArrayButton) );
-        JLabel addToArrayLabel = new JLabel("no result");
+        addToArrayLabel = new JLabel("no result");
+        leftButtons.add(sortIntsButton);
+        leftButtons.add(addToBstButton);
+        leftButtons.add(addToTreeSetButton);
+        leftButtons.add(addToPriorityQButton);
+        leftButtons.add(addToHashSetButton);
+        leftButtons.add(addToArrayListButton);
+        leftButtons.add(addToSortedArrayButton);
+        leftButtons.add(addToArrayButton);
+        for(JButton b : leftButtons) b.setEnabled(false);
 
         leftButtonPanelConstraints.weightx = 1;
         leftButtonPanelConstraints.weighty = 1;
@@ -339,11 +361,18 @@ class liu_Project {
         public void actionPerformed(ActionEvent e)
         {
             System.out.println("action performed on " + b.getText() + " button");
-            switch(b.getText()) {
-                case "":
-                    break;
-                default:
+            System.out.println(b.getText());
+            System.out.println(b.getText().equals("Read sort file"));
+            if(b.getText().equals("Read sort file")) {
+                System.out.println("Clicked Read sort file");
             }
+            // String buttonText = b.getText();
+            // switch(buttonText) {
+            //     case "Read sort file":
+            //         System.out.println("Clicked Read sort file");
+            //         break;
+            //     default:
+            // }
         }
     }
 
@@ -363,20 +392,17 @@ class liu_Project {
         {
             System.out.println("action performed on " + m.getText() + " menu item");
 
+            switch(m.getText()) {
+                case "Read sort file":
+
+                    break;
+                default:
+            }
+
             // if exit is selected from the file menu, exit the program
             if( m.getText().toLowerCase().equals("exit") )
             {
                 System.exit(0);
-            }
-
-            // if color is selected from the edit menu, put a popup on the screen
-            // saying something
-            if( m.getText().toLowerCase().equals("color") )
-            {
-                Object[] options = {"OK"};
-                javax.swing.JOptionPane.showOptionDialog(null, "This is unimplemented,\nclick OK to continue",
-                        "Warning", javax.swing.JOptionPane.DEFAULT_OPTION,
-                        javax.swing.JOptionPane.WARNING_MESSAGE, null, options, options[0]);
             }
         }
     }
