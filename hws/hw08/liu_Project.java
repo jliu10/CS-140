@@ -86,7 +86,14 @@ class liu_Project {
         GridBagLayout leftGridBagLayout = new GridBagLayout();
         leftButtonPanel.setLayout(leftGridBagLayout);
         leftButtonPanel.setMinimumSize(new Dimension(330,350));
-        GridBagConstraints leftButtonPanelConstraints = new GridBagConstraints();
+        // right button panel
+        JPanel rightButtonPanel = new JPanel();
+        rightButtonPanel.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+        GridBagLayout rightGridBagLayout = new GridBagLayout();
+        rightButtonPanel.setLayout(rightGridBagLayout);
+        rightButtonPanel.setMinimumSize(new Dimension(330,350));
+
+        GridBagConstraints buttonPanelConstraints = new GridBagConstraints();
 
         // left buttons and labels
         sortIntsButton = new JButton("sort ints");
@@ -130,34 +137,6 @@ class liu_Project {
         leftLabels.add(addToArrayListLabel);
         leftLabels.add(addToSortedArrayLabel);
         leftLabels.add(addToArrayLabel);
-        // position/size buttons/labels
-        leftButtonPanelConstraints.weightx = 1;
-        leftButtonPanelConstraints.weighty = 1;
-        leftButtonPanelConstraints.fill = GridBagConstraints.NONE;
-        leftButtonPanelConstraints.anchor = GridBagConstraints.LINE_START;
-        for(int i = 0; i < leftButtons.size(); i++) {
-            leftButtonPanelConstraints.gridx = 0;
-            leftButtonPanelConstraints.gridy = i;
-            leftButtonPanelConstraints.gridwidth = 1;
-            leftGridBagLayout.setConstraints(leftButtons.get(i), leftButtonPanelConstraints);
-            leftButtonPanelConstraints.gridx = 1;
-            leftButtonPanelConstraints.gridy = i;
-            leftButtonPanelConstraints.gridwidth = GridBagConstraints.REMAINDER;
-            leftGridBagLayout.setConstraints(leftLabels.get(i), leftButtonPanelConstraints);
-        }
-
-        // add buttons to leftButtonPanel
-        for(JButton b : leftButtons) leftButtonPanel.add(b);
-        for(JLabel l : leftLabels) leftButtonPanel.add(l);
-
-        // right button panel
-        JPanel rightButtonPanel = new JPanel();
-        rightButtonPanel.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-        GridBagLayout rightGridBagLayout = new GridBagLayout();
-        rightButtonPanel.setLayout(rightGridBagLayout);
-        rightButtonPanel.setMinimumSize(new Dimension(330,350));
-        GridBagConstraints rightButtonPanelConstraints = new GridBagConstraints();
-
         // right buttons and labels
         searchSortedIntsButton = new JButton("search sorted ints");
         searchSortedIntsButton.addActionListener( new ButtonActionListener(searchSortedIntsButton) );
@@ -200,25 +179,32 @@ class liu_Project {
         rightLabels.add(searchArrayListLabel);
         rightLabels.add(searchSortedArrayLabel);
         rightLabels.add(searchArrayLabel);
+
         // position/size buttons/labels
-        rightButtonPanelConstraints.weightx = 1;
-        rightButtonPanelConstraints.weighty = 1;
-        rightButtonPanelConstraints.fill = GridBagConstraints.NONE;
-        rightButtonPanelConstraints.anchor = GridBagConstraints.LINE_START;
-        for(int i = 0; i < rightButtons.size(); i++) {
-            rightButtonPanelConstraints.gridx = 0;
-            rightButtonPanelConstraints.gridy = i;
-            rightButtonPanelConstraints.gridwidth = 1;
-            rightGridBagLayout.setConstraints(rightButtons.get(i), rightButtonPanelConstraints);
-            rightButtonPanelConstraints.gridx = 1;
-            rightButtonPanelConstraints.gridy = i;
-            rightButtonPanelConstraints.gridwidth = GridBagConstraints.REMAINDER;
-            rightGridBagLayout.setConstraints(rightLabels.get(i), rightButtonPanelConstraints);
+        buttonPanelConstraints.weightx = 1;
+        buttonPanelConstraints.weighty = 1;
+        buttonPanelConstraints.fill = GridBagConstraints.NONE;
+        buttonPanelConstraints.anchor = GridBagConstraints.LINE_START;
+        for(int i = 0; i < leftButtons.size(); i++) {
+            buttonPanelConstraints.gridx = 0;
+            buttonPanelConstraints.gridy = i;
+            buttonPanelConstraints.gridwidth = 1;
+            leftGridBagLayout.setConstraints(leftButtons.get(i), buttonPanelConstraints);
+            rightGridBagLayout.setConstraints(rightButtons.get(i), buttonPanelConstraints);
+            buttonPanelConstraints.gridx = 1;
+            buttonPanelConstraints.gridy = i;
+            buttonPanelConstraints.gridwidth = GridBagConstraints.REMAINDER;
+            leftGridBagLayout.setConstraints(leftLabels.get(i), buttonPanelConstraints);
+            rightGridBagLayout.setConstraints(rightLabels.get(i), buttonPanelConstraints);
         }
 
-        // add buttons to rightButtonPanel
-        for(JButton b : rightButtons) rightButtonPanel.add(b);
-        for(JLabel l : rightLabels) rightButtonPanel.add(l);
+        // add buttons to leftButtonPanel
+        for(int i = 0; i < leftButtons.size(); i++) {
+            leftButtonPanel.add(leftButtons.get(i));
+            leftButtonPanel.add(leftLabels.get(i));
+            rightButtonPanel.add(rightButtons.get(i));
+            rightButtonPanel.add(rightLabels.get(i));
+        }
 
         // main button panel
         JPanel mainButtonPanel = new JPanel();
@@ -251,19 +237,18 @@ class liu_Project {
     }
 
     /**
-     * Sorts the specified values using selection sort
-     * @param values the values to be sorted
+     * Sorts sortValues using selection sort
      */
-    private static void selectionSort(int[] values) {
-		for(int i = 0; i <= values.length; i++) {
+    private static void selectionSort() {
+		for(int i = 0; i <= sortValues.length; i++) {
 			int min = i;
-			for(int j = i + 1; j <= values.length; j++) {
-				if(values[j] < values[min]) min = j;
+			for(int j = i + 1; j <= sortValues.length; j++) {
+				if(sortValues[j] < sortValues[min]) min = j;
 			}
-			if(min != i) { // swap values[min] and values[i]
-				int t = values[min];
-				values[min] = values[i];
-				values[i] = t;
+			if(min != i) { // swap sortValues[min] and sortValues[i]
+				int t = sortValues[min];
+				sortValues[min] = sortValues[i];
+				sortValues[i] = t;
 			}
 		}
  	}
