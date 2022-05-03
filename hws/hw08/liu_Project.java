@@ -254,7 +254,7 @@ class liu_Project {
      * Sorts the specified values using selection sort
      * @param values the values to be sorted
      */
-    public static void selectionSort(int[] values) {
+    private static void selectionSort(int[] values) {
 		for(int i = 0; i <= values.length; i++) {
 			int min = i;
 			for(int j = i + 1; j <= values.length; j++) {
@@ -267,6 +267,97 @@ class liu_Project {
 			}
 		}
  	}
+
+    /**
+     *
+    */
+    private static int searchInts() {
+        return 0;
+    }
+
+    /**
+     *
+    */
+    private static void addToBST() {
+
+    }
+
+    /**
+     *
+    */
+    private static int searchBST() {
+        return 0;
+    }
+
+    /**
+     *
+    */
+    private static void addToTreeSet() {
+
+    }
+
+    /**
+     *
+    */
+    private static int searchTreeSet() {
+        return 0;
+    }
+
+    /**
+     *
+    */
+    private static void addToHashSet() {
+
+    }
+
+    /**
+     *
+    */
+    private static int searchHashSet() {
+        return 0;
+    }
+
+    /**
+     *
+    */
+    private static void addToPriorityQ() {
+
+    }
+
+    /**
+     *
+    */
+    private static int searchPriorityQ() {
+        return 0;
+    }
+
+    /**
+     *
+    */
+    private static void addToSortedArrayList() {
+
+    }
+
+    /**
+     *
+    */
+    private static int searchSortedArrayList() {
+        return 0;
+    }
+
+    /**
+     *
+    */
+    private static void addToArray() {
+
+    }
+
+    /**
+     *
+    */
+    private static int searchArray() {
+        return 0;
+    }
 
     // action listener for the buttons
     static class ButtonActionListener implements ActionListener
