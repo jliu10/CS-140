@@ -43,8 +43,19 @@ class liu_Project {
     private static JLabel searchArrayLabel;
     private static ArrayList<JButton> rightButtons = new ArrayList<>(8); // facilitate repeated actions
     private static ArrayList<JLabel> rightLabels = new ArrayList<>(8);
-    private File sortFile;
-    private File searchFile;
+
+    private static int[] sortValues;
+    private static int[] searchValues;
+    private static int[] sortedValues;
+    // private static BinarySearchTree bst = new BinarySearchTree();
+    private static TreeSet<Integer> treeSetValues = new TreeSet<>();
+    private static HashSet<Integer> hashSetValues = new HashSet<>();
+    private static PriorityQueue<Integer> priorityQValues = new PriorityQueue<>();
+    private static ArrayList<Integer> arrayListValues = new ArrayList<>();
+    private static ArrayList<Integer> sortedArrayListValues = new ArrayList<>();
+    private static int[] unsortedValues;
+    // private File sortFile;
+    // private File searchFile;
 
     public static void main(String[] args) {
         JFrame f = new JFrame();
@@ -230,6 +241,33 @@ class liu_Project {
 		f.setVisible(true);
     }
 
+    /**
+     * Reads data from filename.
+     * @param filename
+     * @param readSortValues
+     */
+    private static void readData(String filename, boolean readSortValues) {
+
+    }
+
+    /**
+     * Sorts the specified values using selection sort
+     * @param values the values to be sorted
+     */
+    public static void selectionSort(int[] values) {
+		for(int i = 0; i <= values.length; i++) {
+			int min = i;
+			for(int j = i + 1; j <= values.length; j++) {
+				if(values[j] < values[min]) min = j;
+			}
+			if(min != i) { // swap values[min] and values[i]
+				int t = values[min];
+				values[min] = values[i];
+				values[i] = t;
+			}
+		}
+ 	}
+
     // action listener for the buttons
     static class ButtonActionListener implements ActionListener
     {
@@ -247,16 +285,13 @@ class liu_Project {
             System.out.println("action performed on " + b.getText() + " button");
             System.out.println(b.getText());
             System.out.println(b.getText().equals("Read sort file"));
-            if(b.getText().equals("Read sort file")) {
-                System.out.println("Clicked Read sort file");
+
+            switch(b.getText()) {
+                case "sort ints":
+                    System.out.println("Clicked 'sort ints'");
+                    break;
+                default:
             }
-            // String buttonText = b.getText();
-            // switch(buttonText) {
-            //     case "Read sort file":
-            //         System.out.println("Clicked Read sort file");
-            //         break;
-            //     default:
-            // }
         }
     }
 
