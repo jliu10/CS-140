@@ -449,7 +449,6 @@ class liu_Project {
             if(Collections.binarySearch(sortedArrayListValues, n) >= 0) count++;
         }
 
-        System.out.println("Individual count value=" + count);
         return count;
     }
 
