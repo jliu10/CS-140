@@ -47,15 +47,13 @@ class liu_Project {
     private static int[] sortValues;
     private static int[] searchValues;
     private static int[] sortedValues;
-    // private static BinarySearchTree bst = new BinarySearchTree();
+    private static liu_BinarySearchTree bst = new liu_BinarySearchTree();
     private static TreeSet<Integer> treeSetValues = new TreeSet<>();
     private static HashSet<Integer> hashSetValues = new HashSet<>();
     private static PriorityQueue<Integer> priorityQValues = new PriorityQueue<>();
     private static ArrayList<Integer> arrayListValues = new ArrayList<>();
     private static ArrayList<Integer> sortedArrayListValues = new ArrayList<>();
     private static int[] unsortedValues;
-    // private File sortFile;
-    // private File searchFile;
     private static String sortFile;
     private static String searchFile;
 
@@ -476,6 +474,14 @@ class liu_Project {
                     break;
                 case "Read search file":
                     readData(searchFile, false);
+                    if(sortedValues != null) searchSortedIntsButton.setEnabled(true);
+                    if(bst.getRoot() != null) searchBstButton.setEnabled(true);
+                    if(treeSetValues.size() > 0) searchTreeSetButton.setEnabled(true);
+                    if(priorityQValues.size() > 0) searchPriorityQButton.setEnabled(true);
+                    if(hashSetValues.size() > 0) searchHashSetButton.setEnabled(true);
+                    if(arrayListValues.size() > 0) searchArrayListButton.setEnabled(true);
+                    if(sortedArrayListValues.size() > 0) searchSortedArrayButton.setEnabled(true);
+                    if(unsortedValues != null) searchArrayButton.setEnabled(true);
                     break;
                 default: // "Exit" is clicked
                     System.exit(0);
