@@ -56,8 +56,18 @@ class liu_Project {
     private static int[] unsortedValues;
     // private File sortFile;
     // private File searchFile;
+    private static String sortFile;
+    private static String searchFile;
 
     public static void main(String[] args) {
+        if(args.length == 2) {
+            sortFile = args[0];
+            searchFile = args[1];
+        }
+        else {
+            System.out.println("Format: liu_Project <sortFilename> <searchFilename>. Exit and try again dummy");
+        }
+
         JFrame f = new JFrame();
         f.setPreferredSize(new Dimension(width, height));
 		f.setMinimumSize(new Dimension(width, height));
@@ -225,15 +235,39 @@ class liu_Project {
 
         f.validate();
 		f.setVisible(true);
+
     }
 
     /**
      * Reads data from filename.
-     * @param filename
-     * @param readSortValues
+     * @param filename name of file to be read
+     * @param readSortValues true if file to be read is the sort file
      */
     private static void readData(String filename, boolean readSortValues) {
+        try {
+            ArrayList<Integer> temp = new ArrayList<>();
+            File file = new File(filename);
+            Scanner sc = new Scanner(file);
+            while(sc.hasNextLine()) {
+                temp.add( Integer.parseInt(sc.nextLine()) );
+            }
 
+            if(readSortValues) {
+                sortValues = new int[temp.size()];
+                for(int i = 0; i < temp.size(); i++) {
+                    sortValues[i] = temp.get(i);
+                }
+            }
+            else {
+                searchValues = new int[temp.size()];
+                for(int i = 0; i < temp.size(); i++) {
+                    searchValues[i] = temp.get(i);
+                }
+            }
+        }
+        catch(Exception e) {
+            System.out.println("Invalid filename or file: " + e);
+        }
     }
 
     /**
@@ -389,15 +423,13 @@ class liu_Project {
 
             switch(m.getText()) {
                 case "Read sort file":
-
+                    readData(sortFile, true);
                     break;
-                default:
-            }
-
-            // if exit is selected from the file menu, exit the program
-            if( m.getText().toLowerCase().equals("exit") )
-            {
-                System.exit(0);
+                case "Read search file":
+                    readData(searchFile, false);
+                    break;
+                default: // "Exit" is clicked
+                    System.exit(0);
             }
         }
     }
