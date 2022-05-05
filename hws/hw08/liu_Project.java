@@ -437,12 +437,17 @@ class liu_Project {
 
             switch(b.getText()) {
                 case "sort ints":
-                    System.out.println("Clicked 'sort ints'");
                     long t0 = System.currentTimeMillis();
                     selectionSort();
                     long t1 = System.currentTimeMillis();
                     sortIntsLabel.setText(t1 - t0 + "ms");
                     if(searchValues != null) searchSortedIntsButton.setEnabled(true);
+                    break;
+                case "search sorted ints":
+                    t0 = System.currentTimeMillis();
+                    int count = searchInts();
+                    t1 = System.currentTimeMillis();
+                    searchSortedIntsLabel.setText( String.format("%d / %dms", count, t1-t0) );
                     break;
                 default:
             }
