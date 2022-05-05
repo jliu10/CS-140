@@ -4,7 +4,7 @@ import java.awt.event.*;
 import java.io.*;
 import java.util.*;
 
-class liu_Project {
+class liu_p8 {
     private static int width = 750;
     private static int height = 350;
     private static JButton sortIntsButton;
