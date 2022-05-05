@@ -303,8 +303,8 @@ class liu_Project {
  	}
 
     /**
-     * Searches for values in searchValues in sortedValues using binary search
-     * @return how many values in searchValues were found in sortedValues
+     * Searches for searchValues values in sortedValues using binary search
+     * @return how many searchValues values were found in sortedValues
     */
     private static int searchInts() {
         int count = 0;
@@ -334,17 +334,24 @@ class liu_Project {
     }
 
     /**
-     *
+     * Adds sort values to bst
     */
     private static void addToBST() {
-
+        for(int n : sortValues) bst.insertNode(new Node(n));
     }
 
     /**
-     *
+     * Searches for searchValues value in bst
+     * @return how many searchValues values were found in bst
     */
     private static int searchBST() {
-        return 0;
+        int count = 0;
+        for(int n : searchValues) {
+            Node temp = bst.getNode( bst.getRoot(), n );
+            if(temp != null) count++;
+        }
+
+        return count;
     }
 
     /**
@@ -446,6 +453,19 @@ class liu_Project {
                     int count = searchInts();
                     t1 = System.currentTimeMillis();
                     searchSortedIntsLabel.setText( String.format("%d / %dms", count, t1-t0) );
+                    break;
+                case "add to bst":
+                    t0 = System.currentTimeMillis();
+                    addToBST();
+                    t1 = System.currentTimeMillis();
+                    addToBstLabel.setText(t1 - t0 + "ms");
+                    if(searchValues != null) searchBstButton.setEnabled(true);
+                    break;
+                case "search bst":
+                    t0 = System.currentTimeMillis();
+                    count = searchBST();
+                    t1 = System.currentTimeMillis();
+                    searchBstLabel.setText( String.format("%d / %dms", count, t1-t0) );
                     break;
                 default:
             }
