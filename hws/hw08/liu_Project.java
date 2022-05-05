@@ -294,12 +294,6 @@ class liu_Project {
 				sortedValues[i] = t;
 			}
 		}
-
-        // System.out.println("SORTED:");
-        // for(int i = 0; i < sortedValues.length; i++) System.out.println("\t" + sortedValues[i]);
-        // System.out.println("ORIGINAL:");
-        // for(int i = 0; i < sortValues.length; i++) System.out.println("\t" + sortValues[i]);
-
  	}
 
     /**
@@ -334,7 +328,7 @@ class liu_Project {
     }
 
     /**
-     * Adds sort values to bst
+     * Adds sortValues values to bst
     */
     private static void addToBST() {
         for(int n : sortValues) bst.insertNode(new Node(n));
@@ -355,17 +349,23 @@ class liu_Project {
     }
 
     /**
-     *
+     * Adds sortValues values to treeSetValues
     */
     private static void addToTreeSet() {
-
+        for(int n : sortValues) treeSetValues.add(n);
     }
 
     /**
-     *
+     * Searches for searchValues values in treeSetValues
+     * @return how many searchValues values were found in treeSetValues
     */
     private static int searchTreeSet() {
-        return 0;
+        int count = 0;
+        for(int n : searchValues) {
+            if(treeSetValues.contains(n)) count++;
+        }
+
+        return count;
     }
 
     /**
@@ -379,7 +379,9 @@ class liu_Project {
      *
     */
     private static int searchHashSet() {
-        return 0;
+        int count = 0;
+
+        return count;
     }
 
     /**
@@ -393,7 +395,9 @@ class liu_Project {
      *
     */
     private static int searchPriorityQ() {
-        return 0;
+        int count = 0;
+
+        return count;
     }
 
     /**
@@ -407,7 +411,9 @@ class liu_Project {
      *
     */
     private static int searchArrayList() {
-        return 0;
+        int count = 0;
+
+        return count;
     }
 
     /**
@@ -421,7 +427,9 @@ class liu_Project {
      *
     */
     private static int searchSortedArrayList() {
-        return 0;
+        int count = 0;
+
+        return count;
     }
 
     /**
@@ -435,7 +443,9 @@ class liu_Project {
      *
     */
     private static int searchArray() {
-        return 0;
+        int count = 0;
+
+        return count;
     }
 
     // action listener for the buttons
