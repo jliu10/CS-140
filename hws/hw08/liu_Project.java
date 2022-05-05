@@ -110,7 +110,7 @@ class liu_Project {
         addToBstButton = new JButton("add to bst");
         addToBstButton.addActionListener( new ButtonActionListener(addToBstButton) );
         addToBstLabel = new JLabel("no result");
-        addToTreeSetButton = new JButton("add to tree set");
+        addToTreeSetButton = new JButton("add to treeset");
         addToTreeSetButton.addActionListener( new ButtonActionListener(addToTreeSetButton) );
         addToTreeSetLabel = new JLabel("no result");
         addToPriorityQButton = new JButton("add to priority queue");
@@ -152,7 +152,7 @@ class liu_Project {
         searchBstButton = new JButton("search bst");
         searchBstButton.addActionListener( new ButtonActionListener(searchBstButton) );
         searchBstLabel = new JLabel("no result");
-        searchTreeSetButton = new JButton("search tree set");
+        searchTreeSetButton = new JButton("search treeset");
         searchTreeSetButton.addActionListener( new ButtonActionListener(searchTreeSetButton) );
         searchTreeSetLabel = new JLabel("no result");
         searchPriorityQButton = new JButton("search priority queue");
@@ -399,6 +399,20 @@ class liu_Project {
     /**
      *
     */
+    private static void addToArrayList() {
+
+    }
+
+    /**
+     *
+    */
+    private static int searchArrayList() {
+        return 0;
+    }
+
+    /**
+     *
+    */
     private static void addToSortedArrayList() {
 
     }
@@ -467,7 +481,83 @@ class liu_Project {
                     t1 = System.currentTimeMillis();
                     searchBstLabel.setText( String.format("%d / %dms", count, t1-t0) );
                     break;
-                default:
+                case "add to treeset":
+                    t0 = System.currentTimeMillis();
+                    addToTreeSet();
+                    t1 = System.currentTimeMillis();
+                    addToTreeSetLabel.setText(t1 - t0 + "ms");
+                    if(searchValues != null) searchTreeSetButton.setEnabled(true);
+                    break;
+                case "search treeset":
+                    t0 = System.currentTimeMillis();
+                    count = searchTreeSet();
+                    t1 = System.currentTimeMillis();
+                    searchTreeSetLabel.setText( String.format("%d / %dms", count, t1-t0) );
+                    break;
+                case "add to priority queue":
+                    t0 = System.currentTimeMillis();
+                    addToPriorityQ();
+                    t1 = System.currentTimeMillis();
+                    addToPriorityQLabel.setText(t1 - t0 + "ms");
+                    if(searchValues != null) searchPriorityQButton.setEnabled(true);
+                    break;
+                case "search priority queue":
+                    t0 = System.currentTimeMillis();
+                    count = searchPriorityQ();
+                    t1 = System.currentTimeMillis();
+                    searchPriorityQLabel.setText( String.format("%d / %dms", count, t1-t0) );
+                    break;
+                case "add to hashset":
+                    t0 = System.currentTimeMillis();
+                    addToHashSet();
+                    t1 = System.currentTimeMillis();
+                    addToHashSetLabel.setText(t1 - t0 + "ms");
+                    if(searchValues != null) searchHashSetButton.setEnabled(true);
+                    break;
+                case "search hashset":
+                    t0 = System.currentTimeMillis();
+                    count = searchHashSet();
+                    t1 = System.currentTimeMillis();
+                    searchHashSetLabel.setText( String.format("%d / %dms", count, t1-t0) );
+                    break;
+                case "add to arraylist":
+                    t0 = System.currentTimeMillis();
+                    addToArrayList();
+                    t1 = System.currentTimeMillis();
+                    addToArrayListLabel.setText(t1 - t0 + "ms");
+                    if(searchValues != null) searchArrayListButton.setEnabled(true);
+                    break;
+                case "search arraylist":
+                    t0 = System.currentTimeMillis();
+                    count = searchArrayList();
+                    t1 = System.currentTimeMillis();
+                    searchArrayListLabel.setText( String.format("%d / %dms", count, t1-t0) );
+                    break;
+                case "add to sorted arraylist":
+                    t0 = System.currentTimeMillis();
+                    addToSortedArrayList();
+                    t1 = System.currentTimeMillis();
+                    addToSortedArrayLabel.setText(t1 - t0 + "ms");
+                    if(searchValues != null) searchSortedArrayButton.setEnabled(true);
+                    break;
+                case "search sorted arraylist":
+                    t0 = System.currentTimeMillis();
+                    count = searchSortedArrayList();
+                    t1 = System.currentTimeMillis();
+                    searchSortedArrayLabel.setText( String.format("%d / %dms", count, t1-t0) );
+                    break;
+                case "add to array":
+                    t0 = System.currentTimeMillis();
+                    addToArray();
+                    t1 = System.currentTimeMillis();
+                    addToArrayLabel.setText(t1 - t0 + "ms");
+                    if(searchValues != null) searchArrayButton.setEnabled(true);
+                    break;
+                default: // search array
+                    t0 = System.currentTimeMillis();
+                    count = searchArray();
+                    t1 = System.currentTimeMillis();
+                    searchArrayLabel.setText( String.format("%d / %dms", count, t1-t0) );
             }
         }
     }
