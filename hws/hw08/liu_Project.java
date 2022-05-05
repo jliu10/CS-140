@@ -277,7 +277,7 @@ class liu_Project {
     }
 
     /**
-     * Sorts sortValues using selection sort
+     * Sorts sortValues into sortedValues using selection sort
      */
     private static void selectionSort() {
         sortedValues = new int[sortValues.length];
@@ -305,10 +305,34 @@ class liu_Project {
  	}
 
     /**
-     *
+     * Searches for values in searchValues in sortedValues using binary search
+     * @return how many values in searchValues were found in sortedValues
     */
     private static int searchInts() {
-        return 0;
+        int count = 0;
+        for(int n : searchValues) {
+            if(binarySearch(n, sortedValues)) count++;
+        }
+
+        return count;
+    }
+
+    /**
+     * Searches for specified int value in specified array
+     * @param value integer to be searched for
+     * @param data array to be searched
+     * @return true if value is found in data
+    */
+    private static boolean binarySearch(int value, int[] data) {
+        int bottom = 0;
+        int top = data.length - 1;
+        while(bottom <= top) {
+            int middle = (bottom + top) / 2;
+            if(value < data[middle]) top = middle - 1;
+            else if(value > data[middle]) bottom = middle + 1;
+            else return true;
+        }
+        return false;
     }
 
     /**
