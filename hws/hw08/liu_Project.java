@@ -299,7 +299,7 @@ class liu_Project {
     /**
      * Searches for searchValues values in sortedValues using binary search
      * @return how many searchValues values were found in sortedValues
-    */
+     */
     private static int searchInts() {
         int count = 0;
         for(int n : searchValues) {
@@ -314,7 +314,7 @@ class liu_Project {
      * @param value integer to be searched for
      * @param data array to be searched
      * @return true if value is found in data
-    */
+     */
     private static boolean binarySearch(int value, int[] data) {
         int bottom = 0;
         int top = data.length - 1;
@@ -329,7 +329,7 @@ class liu_Project {
 
     /**
      * Adds sortValues values to bst
-    */
+     */
     private static void addToBST() {
         for(int n : sortValues) bst.insertNode(new Node(n));
     }
@@ -337,7 +337,7 @@ class liu_Project {
     /**
      * Searches for searchValues value in bst
      * @return how many searchValues values were found in bst
-    */
+     */
     private static int searchBST() {
         int count = 0;
         for(int n : searchValues) {
@@ -350,7 +350,7 @@ class liu_Project {
 
     /**
      * Adds sortValues values to treeSetValues
-    */
+     */
     private static void addToTreeSet() {
         for(int n : sortValues) treeSetValues.add(n);
     }
@@ -358,7 +358,7 @@ class liu_Project {
     /**
      * Searches for searchValues values in treeSetValues
      * @return how many searchValues values were found in treeSetValues
-    */
+     */
     private static int searchTreeSet() {
         int count = 0;
         for(int n : searchValues) {
@@ -369,81 +369,114 @@ class liu_Project {
     }
 
     /**
-     *
-    */
+     * Adds sortValues values to hashSetValues
+     */
     private static void addToHashSet() {
-
+        for(int n : sortValues) hashSetValues.add(n);
     }
 
     /**
-     *
-    */
+     * Searches for searchValues value in hashSetValues
+     * @return how many searchValues values were found in hashSetValues
+     */
     private static int searchHashSet() {
         int count = 0;
+        for(int n : searchValues) {
+            if(hashSetValues.contains(n)) count++;
+        }
 
         return count;
     }
 
     /**
-     *
-    */
+     * Adds sortValues values to priorityQValues
+     */
     private static void addToPriorityQ() {
-
+        priorityQValues.clear();
+        for(int n : sortValues) priorityQValues.add(n);
     }
 
     /**
-     *
-    */
+     * Searches for searchValues value in priorityQValues
+     * @return how many searchValues values were found in priorityQValues
+     */
     private static int searchPriorityQ() {
         int count = 0;
+        for(int n : searchValues) {
+            if(priorityQValues.contains(n)) count++;
+        }
 
         return count;
     }
 
     /**
-     *
-    */
+     * Adds sortValues values to arrayListValues
+     */
     private static void addToArrayList() {
-
+        arrayListValues.clear();
+        for(int n : sortValues) arrayListValues.add(n);
     }
 
     /**
-     *
-    */
+     * Searches for searchValues value in arrayListValues
+     * @return how many searchValues values were found in arrayListValues
+     */
     private static int searchArrayList() {
         int count = 0;
+        for(int n : searchValues) {
+            if(arrayListValues.contains(n)) count++;
+        }
 
         return count;
     }
 
     /**
-     *
-    */
+     * Adds sortedValues values to sortedArrayListValues
+     */
     private static void addToSortedArrayList() {
-
+        sortedArrayListValues.clear();
+        for(int n : sortValues) sortedArrayListValues.add(n);
+        Collections.sort(sortedArrayListValues);
     }
 
     /**
-     *
-    */
+     * Searches for searchValues value in sortedArrayListValues
+     * @return how many searchValues values were found in sortedArrayListValues
+     */
     private static int searchSortedArrayList() {
         int count = 0;
+        for(int n : searchValues) {
+            if(Collections.binarySearch(sortedArrayListValues, n) >= 0) count++;
+        }
 
+        System.out.println("Individual count value=" + count);
         return count;
     }
 
     /**
-     *
-    */
+     * Adds sortValues values to unsortedValues
+     */
     private static void addToArray() {
-
+        unsortedValues = new int[sortValues.length];
+        for(int i = 0; i < sortValues.length; i++) {
+            unsortedValues[i] = sortValues[i];
+        }
     }
 
     /**
-     *
-    */
+     * Searches for searchValues value in unsortedValues
+     * @return how many searchValues values were found in unsortedValues
+     */
     private static int searchArray() {
         int count = 0;
+        for(int n : searchValues) {
+            for(int m : unsortedValues) {
+                if(m == n) {
+                    count++;
+                    break;
+                }
+            }
+        }
 
         return count;
     }
