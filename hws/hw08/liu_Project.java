@@ -257,12 +257,18 @@ class liu_Project {
                 for(int i = 0; i < temp.size(); i++) {
                     sortValues[i] = temp.get(i);
                 }
+
+                // activate left buttons
+                for(JButton b : leftButtons) {
+                    b.setEnabled(true);
+                }
             }
             else {
                 searchValues = new int[temp.size()];
                 for(int i = 0; i < temp.size(); i++) {
                     searchValues[i] = temp.get(i);
                 }
+                // activate right buttons
             }
         }
         catch(Exception e) {
@@ -274,17 +280,28 @@ class liu_Project {
      * Sorts sortValues using selection sort
      */
     private static void selectionSort() {
-		for(int i = 0; i <= sortValues.length; i++) {
+        sortedValues = new int[sortValues.length];
+        for(int i = 0; i < sortValues.length; i++) {
+            sortedValues[i] = sortValues[i];
+        }
+
+		for(int i = 0; i < sortedValues.length; i++) {
 			int min = i;
-			for(int j = i + 1; j <= sortValues.length; j++) {
-				if(sortValues[j] < sortValues[min]) min = j;
+			for(int j = i + 1; j < sortedValues.length; j++) {
+				if(sortedValues[j] < sortedValues[min]) min = j;
 			}
-			if(min != i) { // swap sortValues[min] and sortValues[i]
-				int t = sortValues[min];
-				sortValues[min] = sortValues[i];
-				sortValues[i] = t;
+			if(min != i) { // swap sortedValues[min] and sortedValues[i]
+				int t = sortedValues[min];
+				sortedValues[min] = sortedValues[i];
+				sortedValues[i] = t;
 			}
 		}
+
+        // System.out.println("SORTED:");
+        // for(int i = 0; i < sortedValues.length; i++) System.out.println("\t" + sortedValues[i]);
+        // System.out.println("ORIGINAL:");
+        // for(int i = 0; i < sortValues.length; i++) System.out.println("\t" + sortValues[i]);
+
  	}
 
     /**
@@ -393,12 +410,15 @@ class liu_Project {
         public void actionPerformed(ActionEvent e)
         {
             System.out.println("action performed on " + b.getText() + " button");
-            System.out.println(b.getText());
-            System.out.println(b.getText().equals("Read sort file"));
 
             switch(b.getText()) {
                 case "sort ints":
                     System.out.println("Clicked 'sort ints'");
+                    long t0 = System.currentTimeMillis();
+                    selectionSort();
+                    long t1 = System.currentTimeMillis();
+                    sortIntsLabel.setText(t1 - t0 + "ms");
+                    if(searchValues != null) searchSortedIntsButton.setEnabled(true);
                     break;
                 default:
             }
