@@ -6,7 +6,7 @@ import java.util.*;
 
 public class liu_p8 {
     private static int width = 750;
-    private static int height = 350;
+    private static int height = 385;
     private static JButton sortIntsButton;
     private static JLabel sortIntsLabel;
     private static JButton addToBstButton;
@@ -23,6 +23,8 @@ public class liu_p8 {
     private static JLabel addToSortedArrayLabel;
     private static JButton addToArrayButton;
     private static JLabel addToArrayLabel;
+    private static JButton mergeSortIntsButton;
+    private static JLabel mergeSortIntsLabel;
     private static ArrayList<JButton> leftButtons = new ArrayList<>(8); // facilitate repeated actions
     private static ArrayList<JLabel> leftLabels = new ArrayList<>(8);
     private static JButton searchSortedIntsButton;
@@ -41,6 +43,8 @@ public class liu_p8 {
     private static JLabel searchSortedArrayLabel;
     private static JButton searchArrayButton;
     private static JLabel searchArrayLabel;
+    private static JButton searchMergeSortedIntsButton;
+    private static JLabel searchMergeSortedIntsLabel;
     private static ArrayList<JButton> rightButtons = new ArrayList<>(8); // facilitate repeated actions
     private static ArrayList<JLabel> rightLabels = new ArrayList<>(8);
 
@@ -54,6 +58,7 @@ public class liu_p8 {
     private static ArrayList<Integer> arrayListValues = new ArrayList<>();
     private static ArrayList<Integer> sortedArrayListValues = new ArrayList<>();
     private static int[] unsortedValues;
+    private static int[] mergeSortedValues;
     private static String sortFile;
     private static String searchFile;
 
@@ -93,13 +98,13 @@ public class liu_p8 {
         leftButtonPanel.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         GridBagLayout leftGridBagLayout = new GridBagLayout();
         leftButtonPanel.setLayout(leftGridBagLayout);
-        leftButtonPanel.setMinimumSize(new Dimension(330,350));
+        leftButtonPanel.setMinimumSize(new Dimension(330,385));
         // right button panel
         JPanel rightButtonPanel = new JPanel();
         rightButtonPanel.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         GridBagLayout rightGridBagLayout = new GridBagLayout();
         rightButtonPanel.setLayout(rightGridBagLayout);
-        rightButtonPanel.setMinimumSize(new Dimension(330,350));
+        rightButtonPanel.setMinimumSize(new Dimension(330,385));
 
         GridBagConstraints buttonPanelConstraints = new GridBagConstraints();
 
@@ -128,6 +133,9 @@ public class liu_p8 {
         addToArrayButton = new JButton("add to array");
         addToArrayButton.addActionListener( new ButtonActionListener(addToArrayButton) );
         addToArrayLabel = new JLabel("no result");
+        mergeSortIntsButton = new JButton("merge sort ints");
+        mergeSortIntsButton.addActionListener( new ButtonActionListener(mergeSortIntsButton) );
+        mergeSortIntsLabel = new JLabel("no result");
         leftButtons.add(sortIntsButton);
         leftButtons.add(addToBstButton);
         leftButtons.add(addToTreeSetButton);
@@ -136,6 +144,7 @@ public class liu_p8 {
         leftButtons.add(addToArrayListButton);
         leftButtons.add(addToSortedArrayButton);
         leftButtons.add(addToArrayButton);
+        leftButtons.add(mergeSortIntsButton);
         for(JButton b : leftButtons) b.setEnabled(false);
         leftLabels.add(sortIntsLabel);
         leftLabels.add(addToBstLabel);
@@ -145,6 +154,7 @@ public class liu_p8 {
         leftLabels.add(addToArrayListLabel);
         leftLabels.add(addToSortedArrayLabel);
         leftLabels.add(addToArrayLabel);
+        leftLabels.add(mergeSortIntsLabel);
         // right buttons and labels
         searchSortedIntsButton = new JButton("search sorted ints");
         searchSortedIntsButton.addActionListener( new ButtonActionListener(searchSortedIntsButton) );
@@ -170,6 +180,9 @@ public class liu_p8 {
         searchArrayButton = new JButton("search array");
         searchArrayButton.addActionListener( new ButtonActionListener(searchArrayButton) );
         searchArrayLabel = new JLabel("no result");
+        searchMergeSortedIntsButton = new JButton("search merge sorted ints");
+        searchMergeSortedIntsButton.addActionListener( new ButtonActionListener(searchMergeSortedIntsButton) );
+        searchMergeSortedIntsLabel = new JLabel("no result");
         rightButtons.add(searchSortedIntsButton);
         rightButtons.add(searchBstButton);
         rightButtons.add(searchTreeSetButton);
@@ -178,6 +191,7 @@ public class liu_p8 {
         rightButtons.add(searchArrayListButton);
         rightButtons.add(searchSortedArrayButton);
         rightButtons.add(searchArrayButton);
+        rightButtons.add(searchMergeSortedIntsButton);
         for(JButton b : rightButtons) b.setEnabled(false);
         rightLabels.add(searchSortedIntsLabel);
         rightLabels.add(searchBstLabel);
@@ -187,6 +201,7 @@ public class liu_p8 {
         rightLabels.add(searchArrayListLabel);
         rightLabels.add(searchSortedArrayLabel);
         rightLabels.add(searchArrayLabel);
+        rightLabels.add(searchMergeSortedIntsLabel);
 
         // position/size buttons/labels
         buttonPanelConstraints.weightx = 1;
@@ -480,6 +495,98 @@ public class liu_p8 {
         return count;
     }
 
+    /**
+     * Sorts sortValues into mergeSortedValues using bottom-up merge sort
+     */
+    private static void mergeSort() {
+        mergeSortedValues = new int[sortValues.length];
+        for(int i = 0; i < sortValues.length; i++) {
+            mergeSortedValues[i] = sortValues[i];
+        }
+        // temp array for working with
+        int[] workArray = new int[sortValues.length];
+        for(int i = 0; i < mergeSortedValues.length; i++) {
+            workArray[i] = mergeSortedValues[i];
+        }
+
+        for(int subLen = 1; subLen < mergeSortedValues.length; subLen *= 2) {
+
+            for(int i = 0; i < mergeSortedValues.length; i += (2 * subLen)) {
+                // if(i + (2 * subLen) == mergeSortedValues.length - 1) {
+                //     merge(mergeSortedValues, i, i + subLen, i + (2 * subLen) + 1, workArray);
+                // }
+                // else {
+                //     merge(mergeSortedValues, i, i + subLen, i + (2 * subLen), workArray);
+                // }
+                merge(mergeSortedValues, i, Math.min(i + subLen, sortValues.length), Math.min(i + (2 * subLen), sortValues.length), workArray);
+            }
+            // copy workArray into mergeSortedValues
+            for(int i = 0; i < workArray.length; i++) {
+                mergeSortedValues[i] = workArray[i];
+            }
+        }
+
+        // confirm sort
+        boolean isSorted = true;
+        for(int i = 0; i < sortValues.length; i++) {
+            System.out.println(mergeSortedValues[i]);
+            if(sortedValues[i] != mergeSortedValues[i]) {
+                isSorted = false;
+                // break;
+            }
+        }
+        System.out.println("merge isSorted: " + isSorted);
+    }
+
+    /**
+     * Merges two defined subarrays of arrA into arrB. If the given subarrays are sorted, arrB will be sorted
+     * @param arrA array whose subarrays are to be merged
+     * @param left start index of left subarray of arrA
+     * @param right start index of right subarray of arrA
+     * @param end end index + 1 of right subarray of arrA
+     * @param arrB array to be merged into from the two defined subarrays
+     */
+    private static void merge(int[] arrA, int left, int right, int end, int[] arrB) {
+        int i = left; // index of left subarray
+        int j = right; // index of right aubarray
+        // k is index of arrB
+        for(int k = i; k < end; k++) {
+            if(i < right) {
+                if(j < end) {
+                    if(arrA[i] <= arrA[j]) {
+                        arrB[k] = arrA[i];
+                        i++;
+                    }
+                    else {
+                        arrB[k] = arrA[j];
+                        j++;
+                    }
+                }
+                else {
+                    arrB[k] = arrA[i];
+                    i++;
+                }
+            }
+            else {
+                arrB[k] = arrA[j];
+                j++;
+            }
+        }
+    }
+
+    /**
+     * Searches for searchValues values in mergeSortedValues using binary search
+     * @return how many searchValues values were found in mergeSortedValues
+     */
+    private static int searchMergeSortedInts() {
+        int count = 0;
+        for(int n : searchValues) {
+            if(binarySearch(n, mergeSortedValues)) count++;
+        }
+
+        return count;
+    }
+
     // action listener for the buttons
     static class ButtonActionListener implements ActionListener
     {
@@ -594,6 +701,19 @@ public class liu_p8 {
                     t1 = System.currentTimeMillis();
                     addToArrayLabel.setText(t1 - t0 + "ms");
                     if(searchValues != null) searchArrayButton.setEnabled(true);
+                    break;
+                case "merge sort ints":
+                    t0 = System.currentTimeMillis();
+                    mergeSort();
+                    t1 = System.currentTimeMillis();
+                    mergeSortIntsLabel.setText(t1 - t0 + "ms");
+                    if(searchValues != null) searchMergeSortedIntsButton.setEnabled(true);
+                    break;
+                case "search merge sorted ints":
+                    t0 = System.currentTimeMillis();
+                    count = searchMergeSortedInts();
+                    t1 = System.currentTimeMillis();
+                    searchMergeSortedIntsLabel.setText( String.format("%d / %dms", count, t1-t0) );
                     break;
                 default: // search array
                     t0 = System.currentTimeMillis();
