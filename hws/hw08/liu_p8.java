@@ -527,15 +527,15 @@ public class liu_p8 {
         }
 
         // confirm sort
-        boolean isSorted = true;
-        for(int i = 0; i < sortValues.length; i++) {
-            System.out.println(mergeSortedValues[i]);
-            if(sortedValues[i] != mergeSortedValues[i]) {
-                isSorted = false;
-                // break;
-            }
-        }
-        System.out.println("merge isSorted: " + isSorted);
+        // boolean isSorted = true;
+        // for(int i = 0; i < sortValues.length; i++) {
+        //     System.out.println(mergeSortedValues[i]);
+        //     if(sortedValues[i] != mergeSortedValues[i]) {
+        //         isSorted = false;
+        //         // break;
+        //     }
+        // }
+        // System.out.println("merge isSorted: " + isSorted);
     }
 
     /**
@@ -551,21 +551,9 @@ public class liu_p8 {
         int j = right; // index of right aubarray
         // k is index of arrB
         for(int k = i; k < end; k++) {
-            if(i < right) {
-                if(j < end) {
-                    if(arrA[i] <= arrA[j]) {
-                        arrB[k] = arrA[i];
-                        i++;
-                    }
-                    else {
-                        arrB[k] = arrA[j];
-                        j++;
-                    }
-                }
-                else {
-                    arrB[k] = arrA[i];
-                    i++;
-                }
+            if(j >= end || (i < right && arrA[i] <= arrA[j])) {
+                arrB[k] = arrA[i];
+                i++;
             }
             else {
                 arrB[k] = arrA[j];
@@ -754,6 +742,7 @@ public class liu_p8 {
                     if(arrayListValues.size() > 0) searchArrayListButton.setEnabled(true);
                     if(sortedArrayListValues.size() > 0) searchSortedArrayButton.setEnabled(true);
                     if(unsortedValues != null) searchArrayButton.setEnabled(true);
+                    if(mergeSortedValues != null) searchMergeSortedIntsButton.setEnabled(true);
                     break;
                 default: // "Exit" is clicked
                     System.exit(0);
